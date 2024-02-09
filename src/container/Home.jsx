@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { HiMenu } from 'react-icons/hi';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { Link, Route, Routes } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import { Sidebar, UserProfile } from '../components';
 import { userQuery } from '../utils/data';
 import { client } from '../client';
@@ -13,7 +13,7 @@ const Home = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [user, setUser] = useState();
   const scrollRef = useRef(null);
-
+ const navigate = useNavigate();
   const userInfo = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const Home = () => {
       setUser(data[0]);
    
     }) }else{
-      location.href="/login"
+       navigate('/login', { replace: true });
     }
   }, []);
 
